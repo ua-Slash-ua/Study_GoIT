@@ -1,0 +1,52 @@
+@startuml
+interface UserInterface {
+    + show_contact(record)
+    + show_all_contacts(book)
+    + show_commands()
+}
+
+class ConsoleInterface {
+    + show_contact(record)
+    + show_all_contacts(book)
+    + show_commands()
+}
+
+class AddressBook {
+    + add_record(record)
+    + find(name: str)
+    + delete(name)
+    + get_upcoming_birthdays()
+}
+
+class Record {
+    + add_phone(phone_number)
+    + remove_phone(phone_number)
+    + edit_phone(old_number, new_number)
+    + find_phone(number_phone)
+    + add_birthday(value)
+}
+
+class Field {
+    + value
+}
+
+class Name {
+}
+
+class Phone {
+    + audit_number(input_number)
+}
+
+class Birthday {
+    + value: datetime
+}
+
+UserInterface <|-- ConsoleInterface
+Field <|-- Name
+Field <|-- Phone
+Field <|-- Birthday
+AddressBook "1" --> "*" Record
+Record --> "0..*" Phone
+Record --> "0..1" Birthday
+
+@enduml
